@@ -1,0 +1,18 @@
+{
+  "name": "@mbti/merge",
+  "version": "0.1.0",
+  "description": "This package contains the merge interval algorithm and react specific features",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "private": true,
+  "scripts": {
+    "dev": "tsc -w",
+    "build": "tsc",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3",
+    "@mbti/eslint-config": "*",
+    "@mbti/tsconfig": "*"
+  }
+}

@@ -1,4 +1,4 @@
 module.exports = {
   root: true,
-  extends: ["@repo/eslint-config/index.js"],
+  extends: ["@mbti/eslint-config/index.js"],
 };
