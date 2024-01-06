@@ -1,1 +1,3 @@
-export const test = () => console.log("hello world!");
+export * from './merge'
+export * from './types'
+export * from './hook'
