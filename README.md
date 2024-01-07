@@ -47,6 +47,8 @@ cd mbti-merge
 docker compose up
 ```
 
+After these steps you can open a mordern web browser of your choice and visit [http://localhost:3000](http://localhost:3000)
+
 ### Start playground for local development
 
 In order to use this app for local development you need to have the following programs installed on your operating system:
@@ -62,6 +64,8 @@ cd mbti-merge
 yarn install
 yarn run dev
 ```
+
+Visit [http://localhost:3000](http://localhost:3000) in a modern web browser of your choice. All made changes of the code will be immediately reflected, so there is no need to refresh the website.
 
 ## Shoutouts
 
