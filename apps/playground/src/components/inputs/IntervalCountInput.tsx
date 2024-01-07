@@ -5,13 +5,11 @@ import { FC } from 'react'
 interface Props {
   onIncrement: (count: number) => void
   onDecrement: (count: number) => void
-  onChange: (count: number) => void
   value: number
 }
 
 export const IntervalCountInput: FC<Props> = ({
   value,
-  onChange,
   onIncrement,
   onDecrement
 }) => {
@@ -19,8 +17,8 @@ export const IntervalCountInput: FC<Props> = ({
     <Group>
       <Stack>
         <NumberInput
-          label='Intervals'
-          description='Set the number of intervals for this algorithm'
+          label="Intervals"
+          description="Set the number of intervals for this algorithm"
           styles={{
             wrapper: {
               display: 'none'
@@ -30,13 +28,12 @@ export const IntervalCountInput: FC<Props> = ({
         ></NumberInput>
         <Group>
           <ActionIcon
-            variant='gradient'
+            variant="gradient"
             onClick={() => {
               if (value <= 2) return
 
               const newCount = value - 1
 
-              onChange(newCount)
               onDecrement(newCount)
             }}
           >
@@ -44,13 +41,12 @@ export const IntervalCountInput: FC<Props> = ({
           </ActionIcon>
           <Text>{value}</Text>
           <ActionIcon
-            variant='gradient'
+            variant="gradient"
             onClick={() => {
               if (value >= 100) return
 
               const newCount = value + 1
 
-              onChange(newCount)
               onIncrement(newCount)
             }}
           >

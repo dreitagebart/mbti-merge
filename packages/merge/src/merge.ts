@@ -1,10 +1,52 @@
 import {
-  IntervalValueArray,
   IntervalValueObjects,
   IntervalValuesArray,
   MergeIntervalResult
 } from './types'
 import { getErrorMessage } from './utils'
+
+export class MergeIntervalHelper {
+  public static create(): MergeIntervalHelper {
+    return new MergeIntervalHelper()
+  }
+
+  public checkInterval(min: number, max: number) {
+    if (min === max) {
+      throw new Error('min and max values are equal')
+    }
+
+    if (min > max) {
+      throw new Error('min value is greater than max value')
+    }
+  }
+
+  public convertIntervalsArray(
+    intervals: IntervalValueObjects
+  ): IntervalValuesArray {
+    return intervals.map(({ min, max }) => [min, max])
+  }
+
+  public mergeIntervalArrays(
+    intervals: IntervalValuesArray
+  ): MergeIntervalResult {
+    const start = performance.now()
+
+    const merged = mergeIntervals(intervals)
+
+    const end = performance.now()
+
+    const time = end - start
+
+    return {
+      time,
+      merged
+    }
+  }
+
+  public mergeIntervalObjects(intervals: IntervalValueObjects) {
+    return this.mergeIntervalArrays(this.convertIntervalsArray(intervals))
+  }
+}
 
 export class MergeIntervalFactory {
   private intervals: IntervalValueObjects
@@ -13,7 +55,7 @@ export class MergeIntervalFactory {
     this.intervals = []
   }
 
-  public static create() {
+  public static create(): MergeIntervalFactory {
     return new MergeIntervalFactory()
   }
 
@@ -73,7 +115,7 @@ export class MergeIntervalFactory {
     return this.intervals
   }
 
-  public setInterval(
+  public changeInterval(
     index: number,
     { min, max }: { min: number; max: number }
   ) {
@@ -90,15 +132,65 @@ export class MergeIntervalFactory {
     }
   }
 
-  public getValuesArray() {
+  public getIntervalsArray(): IntervalValuesArray {
     return this.intervals.map(({ min, max }) => [min, max])
   }
 
-  public mergeIntervals() {
+  public mergeIntervals(): MergeIntervalResult {
     if (this.intervals.length < 2) {
       throw new Error('not enough intervals to merge')
     }
 
-    return 'implement the algorithm here'
+    const intervalsArray = this.getIntervalsArray()
+
+    const start = performance.now()
+
+    const merged = mergeIntervals(intervalsArray)
+
+    const end = performance.now()
+
+    const time = end - start
+
+    return {
+      time,
+      merged
+    }
   }
+}
+
+export const mergeIntervals = (
+  intervals: IntervalValuesArray
+): IntervalValuesArray => {
+  // sort the intervals by their start points
+  intervals.sort((a, b) => a[0] - b[0])
+
+  // initialize the merged intervals list
+  const merged = [intervals[0]]
+
+  for (let i = 1; i < intervals.length; i++) {
+    const current = intervals[i]
+    const previous = merged[merged.length - 1]
+
+    if (current[0] <= previous[1]) {
+      previous[1] = Math.max(previous[1], current[1])
+    } else {
+      merged.push(current)
+    }
+  }
+
+  return merged
+
+  // iterate over the intervals
+  // for (let i = 1; i < intervals.length; i++) {
+  //   const current = intervals[i]
+  //   const previous = merged[merged.length - 1]
+
+  //   if (current[0] <= previous[1]) {
+  //     previous[1] = Math.max(previous[1], current[1])
+  //   } else {
+  //     merged.push(current)
+  //   }
+  // }
+
+  return merged
 }

@@ -16,6 +16,7 @@ interface Props {
 export const IntervalInput: FC<Props> = ({
   index,
   interval,
+  onRemove,
   onChange,
   error
 }) => {
@@ -25,6 +26,7 @@ export const IntervalInput: FC<Props> = ({
         {index + 1}
       </Badge>
       <NumberInput
+        allowDecimal={false}
         error={error && 'Value too high'}
         value={interval.min}
         onChange={(value) =>
@@ -32,13 +34,14 @@ export const IntervalInput: FC<Props> = ({
         }
       ></NumberInput>
       <NumberInput
+        allowDecimal={false}
         error={error && 'Value too low'}
         value={interval.max}
         onChange={(value) =>
           onChange(index, { min: interval.min, max: Number(value) })
         }
       ></NumberInput>
-      <ActionIcon>
+      <ActionIcon variant="light" onClick={() => onRemove(index)}>
         <IconX></IconX>
       </ActionIcon>
     </Group>

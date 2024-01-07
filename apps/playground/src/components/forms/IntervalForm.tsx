@@ -10,7 +10,7 @@ import {
   Title
 } from '@mantine/core'
 import { useForm } from '@mantine/form'
-import { FC, useCallback, useEffect } from 'react'
+import { FC, useCallback } from 'react'
 import { IconLayersIntersect } from '@tabler/icons-react'
 import { IntervalCountInput, IntervalInputGroup } from '@components/inputs'
 import { useMergeInterval } from '@mbti/merge'
@@ -20,52 +20,46 @@ interface Props {}
 type FormState = {
   executionTime: string | null
   errors: Array<number>
-  count: number
   merged: string
-  unmerged: string
 }
 
 export const IntervalForm: FC<Props> = () => {
-  const intervals = useMergeInterval()
-  const { values, setFieldValue, onSubmit } = useForm<FormState>({
-    initialValues: {
-      executionTime: null,
-      merged: '[]',
-      unmerged: '[]',
-      errors: [],
-      count: 4
-    }
-  })
+  const {
+    intervals,
+    checkInterval,
+    removeInterval,
+    addInterval,
+    changeInterval,
+    mergeIntervals
+  } = useMergeInterval([
+    { min: 25, max: 30 },
+    { min: 2, max: 19 },
+    { min: 14, max: 23 },
+    { min: 4, max: 8 }
+  ])
+  const { values, setFieldValue, onSubmit, removeListItem, insertListItem } =
+    useForm<FormState>({
+      initialValues: {
+        executionTime: null,
+        merged: '[]',
+        errors: []
+      }
+    })
 
-  const handleSubmit = useCallback(({}: typeof values) => {
-    const start = performance.now()
+  const handleSubmit = useCallback(() => {
+    const result = mergeIntervals()
 
-    // do intervals merge here
-
-    const end = performance.now()
-
-    const executionTime = end - start
-
-    setFieldValue('merged', JSON.stringify([]))
-    setFieldValue('unmerged', JSON.stringify([]))
-    setFieldValue('executionTime', executionTime.toFixed(5))
-  }, [])
-
-  useEffect(() => {
-    intervals.addInterval(25, 30)
-    intervals.addInterval(2, 19)
-    intervals.addInterval(14, 23)
-    intervals.addInterval(4, 8)
-  }, [])
+    setFieldValue('merged', JSON.stringify(result.merged))
+    setFieldValue('executionTime', String(result.time))
+  }, [intervals, mergeIntervals])
 
   return (
     <form onSubmit={onSubmit(handleSubmit)}>
       <Stack>
         <IntervalCountInput
-          value={values.count}
-          onChange={(value) => setFieldValue('count', value)}
-          onDecrement={() => console.log('decrement')}
-          onIncrement={() => console.log('increment')}
+          value={intervals.length}
+          onDecrement={() => removeInterval(intervals.length - 1)}
+          onIncrement={() => addInterval(10, 20)}
         ></IntervalCountInput>
         {values.errors.length > 0 && (
           <Group>
@@ -76,24 +70,37 @@ export const IntervalForm: FC<Props> = () => {
         )}
         <IntervalInputGroup
           errors={values.errors}
-          values={intervals.getIntervals()}
+          values={intervals}
           onRemove={(index) => {
+            if (intervals.length === 2) return
+
             try {
-              intervals.removeInterval(index)
+              removeInterval(index)
             } catch (error) {
               console.error(error)
             }
           }}
-          onChange={(index, value) => {
+          onChange={(index, { min, max }) => {
             try {
-              intervals.setInterval(index, value)
+              checkInterval(min, max)
+
+              const indexOf = values.errors.indexOf(index)
+
+              if (indexOf > -1) {
+                removeListItem('errors', indexOf)
+              }
             } catch (error) {
-              console.error(error)
+              if (values.errors.indexOf(index) === -1) {
+                insertListItem('errors', index)
+              }
             }
+
+            changeInterval(index, { min, max })
           }}
         ></IntervalInputGroup>
         <Group mt="md">
           <Button
+            disabled={values.errors.length > 0}
             size="md"
             variant="gradient"
             type="submit"
@@ -106,14 +113,10 @@ export const IntervalForm: FC<Props> = () => {
         <Title order={2}>
           Result {values.executionTime && `(${values.executionTime} ms)`}
         </Title>
-        <Group>
+        <Group grow>
           <Stack>
             <Title order={4}>Merged intervals</Title>
-            <JsonInput value={values.merged}></JsonInput>
-          </Stack>
-          <Stack>
-            <Title order={4}>Non overlapping intervals</Title>
-            <JsonInput value={values.unmerged}></JsonInput>
+            <JsonInput size="lg" value={values.merged}></JsonInput>
           </Stack>
         </Group>
       </Stack>

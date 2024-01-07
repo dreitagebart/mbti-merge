@@ -4,7 +4,7 @@ export type IntervalValuesArray = Array<IntervalValueArray>
 
 export type MergeIntervalResult = {
   merged: IntervalValuesArray
-  unmerged: IntervalValuesArray
+  time: number
 }
 
 export type IntervalValueObject = {

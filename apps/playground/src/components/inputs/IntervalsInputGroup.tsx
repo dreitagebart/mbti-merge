@@ -16,7 +16,6 @@ export const IntervalInputGroup: FC<Props> = ({
   onChange,
   onRemove
 }) => {
-  debugger
   return (
     <Stack mt="lg">
       {values.map((interval, index) => {
