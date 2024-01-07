@@ -50,7 +50,7 @@ export const IntervalForm: FC<Props> = () => {
     const result = mergeIntervals()
 
     setFieldValue('merged', JSON.stringify(result.merged))
-    setFieldValue('executionTime', String(result.time))
+    setFieldValue('executionTime', result.time)
   }, [intervals, mergeIntervals])
 
   return (
@@ -114,10 +114,7 @@ export const IntervalForm: FC<Props> = () => {
           Result {values.executionTime && `(${values.executionTime} ms)`}
         </Title>
         <Group grow>
-          <Stack>
-            <Title order={4}>Merged intervals</Title>
-            <JsonInput size="lg" value={values.merged}></JsonInput>
-          </Stack>
+          <JsonInput size="lg" value={values.merged}></JsonInput>
         </Group>
       </Stack>
     </form>

@@ -35,7 +35,7 @@ export class MergeIntervalHelper {
 
     const end = performance.now()
 
-    const time = end - start
+    const time = (end - start).toFixed(4)
 
     return {
       time,
@@ -149,7 +149,7 @@ export class MergeIntervalFactory {
 
     const end = performance.now()
 
-    const time = end - start
+    const time = (end - start).toFixed(4)
 
     return {
       time,
@@ -177,20 +177,6 @@ export const mergeIntervals = (
       merged.push(current)
     }
   }
-
-  return merged
-
-  // iterate over the intervals
-  // for (let i = 1; i < intervals.length; i++) {
-  //   const current = intervals[i]
-  //   const previous = merged[merged.length - 1]
-
-  //   if (current[0] <= previous[1]) {
-  //     previous[1] = Math.max(previous[1], current[1])
-  //   } else {
-  //     merged.push(current)
-  //   }
-  // }
 
   return merged
 }

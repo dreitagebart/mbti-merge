@@ -1,70 +1,80 @@
-# Turborepo Docker starter
+# MBTI - coding challenge
 
-This is an official Docker starter Turborepo.
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/t/dreitagebart/mbti-merge)
 
-## Using this example
+![Static Badge](https://img.shields.io/badge/yarn-yarn?style=for-the-badge&logo=yarn&color=black)
+![Static Badge](https://img.shields.io/badge/docker-docker?style=for-the-badge&logo=docker&color=black)
+![Static Badge](https://img.shields.io/badge/turborepo-turborepo?style=for-the-badge&logo=turborepo&color=black)
+![Static Badge](https://img.shields.io/badge/react-react?style=for-the-badge&logo=react&color=black)
+![Static Badge](https://img.shields.io/badge/typescript-typescript?style=for-the-badge&logo=typescript&color=black)
+![Static Badge](https://img.shields.io/badge/nextjs-nextjs?style=for-the-badge&logo=next.js&color=black)
+![Static Badge](https://img.shields.io/badge/mantine-mantine?style=for-the-badge&logo=mantine&color=black)
 
-Run the following command:
+This repository is the result of the coding challenge. Every single part is fully open source! 
 
-```sh
-npx create-turbo@latest -e with-docker
+## The problem
+
+Given a list of intervals, merge all overlapping intervals into a single interval. The output list should contain only merged intervals. Non-overlapping intervals should be left unchanged.
+
+## The solution
+
+To merge overlapping intervals, we need to identify which intervals overlap or are adjacent to each other. The core concept is to organize the intervals based on their starting points. Once the intervals are arranged, we systematically traverse the collection, comparing the start time of each interval to the end time of the preceding interval. If they overlap or are adjacent, we consolidate them into a single interval. Otherwise, we append the current interval as a distinct interval. This strategy ensures that all overlapping or adjacent intervals are incorporated.
+
+## Getting started
+
+To showcase this algorithm a web app has been developed. This will give you a more precise feeling and a better understanding of how the algorithm works. The web app allows you to easily input a list of intervals and see the output of all merged intervals.
+
+<img src="./assets/screenshot.png" alt="Screenshot of playground web app">
+
+### What's inside
+
+This repository is designed as a monorepo and contains one `app` (playground) and serveral `packages`.
+
+- `/apps/playground` - Playground web app
+- `/packages/merge` - Merge interval algorithm package
+- `/packages/eslint-config` - Package for ESLint configuration
+- `/packages/tsconfig` - Package for TypeScript configuration
+- `/assets` - Miscellaneous assets are stored inside this folder
+
+### Start playground using docker container
+
+The easiest way to get started is to use this app as a docker container. For this you need to have the latest version of [Docker Desktop](https://www.docker.com) (with docker compose) installed.
+
+```bash
+git clone https://github.com/dreitagebart/mbti-merge
+cd mbti-merge
+docker compose up
 ```
 
-## What's inside?
+### Start playground for local development
 
-This turborepo uses [Yarn](https://classic.yarnpkg.com/lang/en/) as a package manager. It includes the following packages/apps:
+In order to use this app for local development you need to have the following programs installed on your operating system:
 
-### Apps and Packages
+- [Node JS](https://nodejs.org) - Version 20 or higher (LTS version preferred)
+- [Yarn](https://yarnpkg.com) - Package manager 
 
-- `@repo/web`: a [Next.js](https://nextjs.org/) app
-- `@repo/api`: an [Express](https://expressjs.com/) server
-- `@repo/ui`: ui: a React component library
-- `@repo/eslint-config-custom`: `eslint` configurations for client side applications (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/eslint-config-custom-server`: `eslint` configurations for server side applications (includes `eslint-config-next` and `eslint-config-prettier`)
-- `scripts`: Jest configurations
-- `@repo/logger`: Isomorphic logger (a small wrapper around console.log)
-- `@repo/typescript-config`: tsconfig.json's used throughout the monorepo
+If all the prerequisites are met, the following commands can be executed.
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Docker
-
-This repo is configured to be built with Docker, and Docker compose. To build all apps in this repo:
-
-```
-# Create a network, which allows containers to communicate
-# with each other, by using their container name as a hostname
-docker network create app_network
-
-# Build prod using new BuildKit engine
-COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose -f docker-compose.yml build
-
-# Start prod in detached mode
-docker-compose -f docker-compose.yml up -d
+```bash 
+git clone https://github.com/dreitagebart/mbti-merge
+cd mbti-merge
+yarn install
+yarn run dev
 ```
 
-Open http://localhost:3000.
+## Shoutouts
 
-To shutdown all running containers:
+This app takes advantages of some remarkable open source software:
 
-```
-# Stop all running containers
-docker kill $(docker ps -q) && docker rm $(docker ps -a -q)
-```
+- [React](https://react.dev) - Probably the best frontend library for building web UIs
+- [Next.js](https://nextjs.org) - The complete frontend runs with Next.js web frontend framework
+- [Mantine](https://mantine.dev) - A fully featured react components library - the best in my opinion
+- [Turborepo](https://turbo.build/repo) - This repository is organized as a monorepo using yarn as a package manager. It utilizes turborepo - the build system that makes ship happen
 
-### Remote Caching
+<br />
+<br />
 
-This example includes optional remote caching. In the Dockerfiles of the apps, uncomment the build arguments for `TURBO_TEAM` and `TURBO_TOKEN`. Then, pass these build arguments to your Docker build.
-
-You can test this behavior using a command like:
-
-`docker build -f apps/web/Dockerfile . --build-arg TURBO_TEAM=“your-team-name” --build-arg TURBO_TOKEN=“your-token“ --no-cache`
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Jest](https://jestjs.io) test runner for all things JavaScript
-- [Prettier](https://prettier.io) for code formatting
+<pre>
+💻 with ❤️ by <b>dreitagebart</b>
+</pre>

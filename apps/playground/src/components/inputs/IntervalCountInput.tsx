@@ -1,4 +1,4 @@
-import { ActionIcon, Group, NumberInput, Stack, Text } from '@mantine/core'
+import { ActionIcon, Group, NumberInput, Stack, Text, Title } from '@mantine/core'
 import { IconMinus, IconPlus } from '@tabler/icons-react'
 import { FC } from 'react'
 
@@ -15,10 +15,10 @@ export const IntervalCountInput: FC<Props> = ({
 }) => {
   return (
     <Group>
-      <Stack>
+      <Stack gap='xs'>
+        <Title order={2}>Intervals</Title>
+        <Text color='dimmed'>Select the number of intervals to test this algorithm</Text>
         <NumberInput
-          label="Intervals"
-          description="Set the number of intervals for this algorithm"
           styles={{
             wrapper: {
               display: 'none'
