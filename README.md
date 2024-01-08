@@ -1,5 +1,8 @@
 # MBTI - coding challenge
 
+[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com) &nbsp;
+[![forthebadge](https://forthebadge.com/images/badges/open-source.svg)](https://forthebadge.com)
+
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/t/dreitagebart/mbti-merge)
 
@@ -11,7 +14,7 @@
 ![Static Badge](https://img.shields.io/badge/nextjs-nextjs?style=for-the-badge&logo=next.js&color=black)
 ![Static Badge](https://img.shields.io/badge/mantine-mantine?style=for-the-badge&logo=mantine&color=black)
 
-This repository is the result of the coding challenge. Every single part is fully open source! 
+This repository is the result of the coding challenge. Every single part is fully open source!
 
 ## The problem
 
@@ -47,21 +50,25 @@ cd mbti-merge
 docker compose up
 ```
 
+After these steps you can open a mordern web browser of your choice and visit [http://localhost:3000](http://localhost:3000)
+
 ### Start playground for local development
 
 In order to use this app for local development you need to have the following programs installed on your operating system:
 
 - [Node JS](https://nodejs.org) - Version 20 or higher (LTS version preferred)
-- [Yarn](https://yarnpkg.com) - Package manager 
+- [Yarn](https://yarnpkg.com) - Package manager
 
 If all the prerequisites are met, the following commands can be executed.
 
-```bash 
+```bash
 git clone https://github.com/dreitagebart/mbti-merge
 cd mbti-merge
 yarn install
 yarn run dev
 ```
+
+Visit [http://localhost:3000](http://localhost:3000) in a modern web browser of your choice. All made changes of the code will be immediately reflected, so there is no need to refresh the website.
 
 ## Shoutouts
 

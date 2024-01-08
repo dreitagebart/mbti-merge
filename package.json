@@ -7,6 +7,7 @@
     "clean": "turbo run clean",
     "dev": "turbo run dev",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "generate": "turbo run generate --filter=@mbti/merge",
     "lint": "turbo run lint",
     "test": "turbo run test"
   },
